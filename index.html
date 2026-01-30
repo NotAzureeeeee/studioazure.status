@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Project Status</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    body {
+      font-family: system-ui, sans-serif;
+      background: #0f172a;
+      color: white;
+      padding: 20px;
+    }
+    .card {
+      background: #020617;
+      border-radius: 12px;
+      padding: 16px;
+      max-width: 500px;
+      margin: auto;
+    }
+    .ok { color: #22c55e; }
+    .warn { color: #facc15; }
+    .down { color: #ef4444; }
+  </style>
+</head>
+<body>
+
+<div class="card">
+  <h1>🚦 Project Status</h1>
+  <p>Status: <span id="status">Loading…</span></p>
+  <p>Message:</p>
+  <p id="message"></p>
+  <small>Last updated: <span id="updated"></span></small>
+</div>
+
+<script>
+fetch("status.json")
+  .then(res => res.json())
+  .then(data => {
+    const statusEl = document.getElementById("status");
+    statusEl.textContent = data.status;
+    statusEl.className = data.level;
+
+    document.getElementById("message").textContent = data.message;
+    document.getElementById("updated").textContent = data.updated;
+  });
+</script>
+
+</body>
+</html>
